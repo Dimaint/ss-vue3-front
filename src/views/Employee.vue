@@ -9,7 +9,7 @@
       v-if="is_loading"
     ></v-progress-circular>
 
-    <v-table fixed-header height="80vh">
+    <v-table fixed-header height="70vh">
       <thead>
         <tr>
           <th class="text-left" v-for="el of tableHeaders" :key="el">
@@ -30,7 +30,7 @@
     <div class="text-center">
     <v-pagination
       v-model="page"
-      :length="4"
+      :length="total/7"
       prev-icon="mdi-menu-left"
       next-icon="mdi-menu-right"
     ></v-pagination>
@@ -53,7 +53,7 @@ const tableHeaders = [
 const page = ref(1)
 
 const store = useEmployeeStore();
-const { employee, is_loading } = storeToRefs(store);
+const { employee, is_loading, total } = storeToRefs(store);
 import { useRouter } from 'vue-router'
 
 export default {
@@ -64,7 +64,7 @@ export default {
 
 
     onMounted(() => {
-      console.log("mounted");
+      // console.log("mounted");
       let params = {page: page.value}
       store.GET_EMPLOYEES(params);
     });
@@ -82,7 +82,8 @@ export default {
       is_loading,
       tableHeaders,
       goToEmployeeCard,
-      page
+      page,
+      total
     };
   },
 

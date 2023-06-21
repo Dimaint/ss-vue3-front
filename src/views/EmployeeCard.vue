@@ -1,27 +1,41 @@
 <template>
-  <v-card>
-    <v-card-title>
+  <v-container>
+    <v-row>
       <v-btn @click="router.go(-1)" size="x-small" icon="mdi-arrow-left"></v-btn>
-    </v-card-title>
-{{employee}}
+    </v-row>
+    <v-row>
+      <v-col cols="3">
+        <v-img :width="250" aspect-ratio="1/1" cover
+          src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+      </v-col>
+      <v-col cols="9">
+          <p class="text-subtitle-1 ">Должность: <span class="font-weight-light">{{ employee.rank }}</span></p>
+          <p class="text-subtitle-1 ">Фамилия: <span class="font-weight-light">{{ employee.last_name }}</span></p>
+          <p class="text-subtitle-1 ">Имя: <span class="font-weight-light">{{ employee.first_name }}</span></p>
+          <p class="text-subtitle-1 ">Отчество: <span class="font-weight-light">{{ employee.middle_name }}</span></p>
+          <p class="text-subtitle-1 ">День рождения: <span class="font-weight-light">{{ employee.birthday }}</span></p>
+          <p class="text-subtitle-1 ">Телефон: <span class="font-weight-light">{{ employee.phone }}</span></p>
+        </v-col>
+    </v-row>
 
-  </v-card>
+
+  </v-container>
 </template>
 
-<script>
+<script >
 import { useRoute, useRouter } from 'vue-router'
-import {  watch, ref } from 'vue'
+import { watch, ref } from 'vue'
 import { onMounted } from "vue";
 import axios from 'axios'
 
 export default {
-  setup () {
+  setup() {
     const route = useRoute();
     const router = useRouter();
     const employee = ref({})
 
     async function getEmployee() {
-      let {data}= await axios.get('http://localhost:8008/employee/'+route.params.id)
+      let { data } = await axios.get('http://localhost:8000/employee/' + route.params.id)
 
       employee.value = data
     }
@@ -38,6 +52,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
