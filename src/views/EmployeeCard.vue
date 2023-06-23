@@ -13,7 +13,7 @@
           <p class="text-subtitle-1 ">Фамилия: <span class="font-weight-light">{{ employee.last_name }}</span></p>
           <p class="text-subtitle-1 ">Имя: <span class="font-weight-light">{{ employee.first_name }}</span></p>
           <p class="text-subtitle-1 ">Отчество: <span class="font-weight-light">{{ employee.middle_name }}</span></p>
-          <p class="text-subtitle-1 ">День рождения: <span class="font-weight-light">{{ employee.birthday }}</span></p>
+          <p class="text-subtitle-1 ">День рождения: <span class="font-weight-light">{{ moment(employee.birthday).format('ll') }}</span></p>
           <p class="text-subtitle-1 ">Телефон: <span class="font-weight-light">{{ employee.phone }}</span></p>
         </v-col>
     </v-row>
@@ -27,6 +27,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { watch, ref } from 'vue'
 import { onMounted } from "vue";
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   setup() {
@@ -46,7 +47,8 @@ export default {
     watch(route, () => console.log('route.params'));
     return {
       employee,
-      router
+      router,
+      moment
     }
   }
 }

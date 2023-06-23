@@ -4,6 +4,13 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
+
+//moment
+import moment from 'moment'
+import ru from "moment/dist/locale/ru"
+moment.locale('ru', ru);
+
+
 // Components
 import App from './App.vue'
 

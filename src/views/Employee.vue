@@ -22,7 +22,7 @@
           <td>{{ item.last_name ? item.last_name : "" }}</td>
           <td>{{ item.first_name ? item.first_name : "" }}</td>
           <td>{{ item.middle_name ? item.middle_name : "" }}</td>
-          <td>{{ item.birthday ? item.birthsday : "" }}</td>
+          <td>{{ item.birthday ? moment(item.birthsday).format('ll'): "" }}</td>
           <td>{{ item.role ? item.role : "" }}</td>
         </tr>
       </tbody>
@@ -42,6 +42,7 @@
 import { useEmployeeStore } from "@/store/employee";
 import { onMounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
+import moment from 'moment'
 
 const tableHeaders = [
   "Фамилия",
@@ -83,7 +84,8 @@ export default {
       tableHeaders,
       goToEmployeeCard,
       page,
-      total
+      total,
+      moment
     };
   },
 
