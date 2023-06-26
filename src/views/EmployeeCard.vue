@@ -1,14 +1,15 @@
 <template>
   <v-container>
-    <p>{{ activeTab.value }}</p>
+
     <v-row>
       <v-btn @click="router.go(-1)" size="x-small" icon="mdi-arrow-left"></v-btn>
+
     </v-row>
     <v-row>
       <v-col cols="3">
         <v-card class="mx-auto pa-2">
           <v-list density="compact" nav>
-            <v-list-subheader>REPORTS</v-list-subheader>
+            <v-list-subheader>REPORTS{{ activeTab  }}</v-list-subheader>
 
             <v-list-item v-for="(item, i) in items" :key="i" @click="activeTab=item" color="primary">
                   <template v-slot:prepend>
@@ -21,7 +22,8 @@
         </v-card>
       </v-col>
       <v-col cols="9">
-        <v-card class="mx-auto pa-4">
+        <group-list v-if="activeTab.id == 2"/>
+        <v-card v-if="activeTab.id == 1" class="mx-auto pa-4">
         <div><v-img :max-width="150" aspect-ratio="1/1" cover src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
         </div>
         <!-- <p class="text-subtitle-1 ">Должность: <span class="font-weight-light">{{ employee.rank }}</span></p> -->
@@ -45,8 +47,12 @@ import { watch, ref } from 'vue'
 import { onMounted } from "vue";
 import axios from 'axios'
 import moment from 'moment'
+import GroupList from '../components/GroupList.vue'
 
 export default {
+  components: {
+    GroupList
+  },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -54,9 +60,9 @@ export default {
     const activeTab = ref({})
 
     const items = [
-      { text: 'БИО', icon: 'mdi-account' },
-      { text: 'Группы', icon: 'mdi-account' },
-      { text: 'Conversions', icon: 'mdi-flag' },
+      { id: 1, text: 'БИО', icon: 'mdi-account' },
+      { id: 2, text: 'Группы', icon: 'mdi-account-group-outline' },
+      { id: 3, text: 'Conversions', icon: 'mdi-flag' },
     ];
 
     async function getEmployee() {
