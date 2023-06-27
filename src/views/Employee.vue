@@ -22,7 +22,7 @@
           <td>{{ item.last_name ? item.last_name : "" }}</td>
           <td>{{ item.first_name ? item.first_name : "" }}</td>
           <td>{{ item.middle_name ? item.middle_name : "" }}</td>
-          <td>{{ item.birthday ? moment(item.birthsday).format('ll'): "" }}</td>
+          <td>{{ item.birthday ? moment(item.birthday).format('ll'): "" }}</td>
           <td>{{ item.role ? item.role : "" }}</td>
         </tr>
       </tbody>
