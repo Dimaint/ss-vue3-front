@@ -29,7 +29,7 @@ export default {
     links: [
       { title: 'Home', href: '/', icon: 'mdi-home' },
       { title: 'Employee', href: '/employee', icon: 'mdi-account-group' },
-      { title: 'Children', href: '/children', icon: 'mdi-account-supervisor-outline' }
+      { title: 'Clients', href: '/clients', icon: 'mdi-account-supervisor-outline' }
     ]
   }),
   components: {

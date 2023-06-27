@@ -39,6 +39,16 @@ const routes = [
     name: 'EmployeeCard',
     component: () => import( '@/views/EmployeeCard.vue'),
   },
+  {
+    path: '/clients',
+    name: 'Clients',
+    component: () => import( '@/views/Clients.vue'),
+  },
+  {
+    path: '/client/:id',
+    name: 'ClientCard',
+    component: () => import( '@/views/ClientCard.vue'),
+  },
   { path: '/:pathMatch(.*)*', component: () => import( '@/views/PageNotFound.vue'), }
 ]
 
