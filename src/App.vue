@@ -1,21 +1,24 @@
 <template>
   <v-app>
-    <router-view />
+    <v-system-bar color="blue-grey" >
+      <v-spacer></v-spacer>
+      <span class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Вася Пупкин</span>
+
+      <v-spacer></v-spacer>
+      <v-icon icon="mdi-exit-run" class="ms-2"></v-icon>
+
+      <!-- <span class="ms-2">3:13PM</span> -->
+    </v-system-bar>
+    <router-view class="mt-8"/>
     <v-layout class="overflow-visible" style="height: 56px">
-
-      <v-bottom-navigation
-        v-model="value"
-        bg-color="blue-grey"
-        style="position: fixed !important"
-        mode="shift"
-      >
-
-
+      <v-bottom-navigation v-model="value" bg-color="blue-grey" style="position: fixed !important" mode="shift">
         <v-btn v-for="el in links" :key="el.title" :to="el.href">
-          <v-icon>{{el.icon}}</v-icon>
+          <v-icon>{{ el.icon }}</v-icon>
 
-          <span>{{el.title}}</span>
+          <span>{{ el.title }}</span>
         </v-btn>
+
+
       </v-bottom-navigation>
     </v-layout>
   </v-app>
@@ -41,3 +44,10 @@ export default {
   },
 };
 </script>
+
+<style>
+tr:hover {
+  background-color: #cfd8dc;
+  cursor: pointer;
+}
+</style>

@@ -31,8 +31,9 @@
     <p class="text-subtitle-1 ">Имя: <span class="font-weight-light">{{ client.first_name }}</span></p>
     <p class="text-subtitle-1 ">Отчество: <span class="font-weight-light">{{ client.middle_name }}</span></p>
     <p class="text-subtitle-1 ">День рождения: <span class="font-weight-light">{{
-      moment(client.birthday).format('ll') }}</span></p>
+      client.birthday?moment(client.birthday).format('ll'):'' }}</span></p>
     <p class="text-subtitle-1 ">Телефон: <span class="font-weight-light">{{ client.phone }}</span></p>
+    <p class="text-subtitle-1 ">Группа: <span @click="" class="font-weight-light text-yellow-darken-4">{{ group.name }}</span></p>
   </v-card>
   </v-col>
 </v-row>
@@ -52,31 +53,39 @@ export default {
     const router = useRouter();
     const client = ref({})
     const activeTab = ref({})
+    const group = ref({})
 
     const items = [
       { id: 1, text: 'БИО', icon: 'mdi-account' },
-      { id: 2, text: 'Группы', icon: 'mdi-account-group-outline' },
-      { id: 3, text: 'Conversions', icon: 'mdi-flag' },
+      { id: 2, text: 'Расписание', icon: 'mdi-calendar-account-outline' },
+      { id: 3, text: 'Журнал', icon: 'mdi-flag' },
     ];
 
     async function getClient() {
       let { data } = await axios.get('http://localhost:8000/clients/' + route.params.id)
+      client.value = data;
 
-      client.value = data
+      getClientGroup();
+    }
+    async function getClientGroup() {
+      let { data } = await axios.get('http://localhost:8000/groups/' + client.value.groupId)
+      group.value = data
     }
     onMounted(() => {
 
       getClient();
 
-      activeTab.value = items[0]
+      activeTab.value = items[0];
     });
     watch(route, () => console.log('route.params'));
+
     return {
       client,
       router,
       moment,
       items,
-      activeTab
+      activeTab,
+      group
     }
   }
 }

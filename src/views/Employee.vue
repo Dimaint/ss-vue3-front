@@ -92,8 +92,9 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 tr:hover {
   background-color: #cfd8dc;
+  cursor: pointer;
 }
-</style>
+</style> -->
