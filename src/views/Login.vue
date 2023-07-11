@@ -22,6 +22,8 @@ import { useUserStore } from "@/store/user";
 import {ref} from "vue";
 import { storeToRefs } from "pinia";
 
+// import { notify } from "@kyvg/vue3-notification";
+
 const store = useUserStore();
 const username = ref('admin');
 const password = ref('admin');
@@ -34,6 +36,12 @@ function signIn() {
     password: password.value
   }
   store.LOGIN(payload);
+
+//   notify({
+//   title: "Vue 3 notification 🎉",
+//   position: 'left',
+//   type: 'error',
+// });
 }
 
 export default {

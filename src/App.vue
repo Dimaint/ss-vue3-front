@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <notifications position="center"/>
     <v-system-bar color="blue-grey" >
       <v-spacer></v-spacer>
       <span class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Вася Пупкин</span>
@@ -21,6 +22,7 @@
 
       </v-bottom-navigation>
     </v-layout>
+
   </v-app>
 </template>
 

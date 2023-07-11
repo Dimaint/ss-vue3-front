@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import moment from 'moment'
+import { notify } from "@kyvg/vue3-notification";
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -18,7 +18,12 @@ export const useUserStore = defineStore('user', {
         console.log(data)
         this.GET_PROFILE(data.access_token)
       }catch(err) {
-        console.log('err')
+        console.log(err)
+
+        notify({
+          title: "Ошибка авторизации",
+          type: 'error',
+        });
       }finally {
         this.is_loading = false;
       }
