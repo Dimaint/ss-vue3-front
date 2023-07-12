@@ -3,10 +3,11 @@
     <notifications position="center"/>
     <v-system-bar color="blue-grey" >
       <v-spacer></v-spacer>
-      <span class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Вася Пупкин</span>
+      <span style="cursor: pointer;" v-if="user!=null" class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Вася Пупкин {{ user?.username }}</span>
+      <span style="cursor: pointer;" v-if="user==null" @click="auth" class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Authentication </span>
 
       <v-spacer></v-spacer>
-      <v-icon icon="mdi-exit-run" class="ms-2"></v-icon>
+      <v-icon v-if="user!=null" @click="logout" icon="mdi-exit-run" class="ms-2"></v-icon>
 
       <!-- <span class="ms-2">3:13PM</span> -->
     </v-system-bar>
@@ -27,6 +28,9 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+import { useUserStore } from './store/user';
+import { storeToRefs } from "pinia";
 
 export default {
   data: () => ({
@@ -42,7 +46,24 @@ export default {
   },
 
   setup() {
-    return {};
+    const router = useRouter();
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
+
+    function logout() {
+      userStore.LOGOUT()
+      // router.push({ path: `/login` })
+    }
+
+    function auth() {
+      router.push({ path: `/login` })
+    }
+
+    return {
+      logout,
+      user,
+      auth
+    };
   },
 };
 </script>

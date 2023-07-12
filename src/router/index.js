@@ -1,26 +1,8 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from "@/store/user";
 
 const routes = [
-  // {
-  //   path: '/',
-  //   component: () => import('@/layouts/Default.vue'),
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'Home',
-  //       // route level code-splitting
-  //       // this generates a separate chunk (about.[hash].js) for this route
-  //       // which is lazy-loaded when the route is visited.
-  //       component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-  //     },
-  //     {
-  //       path: '/employee',
-  //       name: 'Employee',
-  //       component: () => import( '@/views/Employee.vue'),
-  //     },
-  //   ],
-  // },
   {
     path: '/',
     component: () => import( '@/views/Home.vue'),
@@ -58,4 +40,15 @@ const router = createRouter({
   routes,
 })
 
+router.beforeEach(async (to) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const auth = useUserStore();
+
+  if (authRequired && !auth.user) {
+      auth.returnUrl = to.fullPath;
+      return '/login';
+  }
+});
 export default router

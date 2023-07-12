@@ -36,12 +36,6 @@ function signIn() {
     password: password.value
   }
   store.LOGIN(payload);
-
-//   notify({
-//   title: "Vue 3 notification 🎉",
-//   position: 'left',
-//   type: 'error',
-// });
 }
 
 export default {

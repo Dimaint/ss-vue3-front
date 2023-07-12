@@ -1,10 +1,3 @@
-/**
- * main.js
- *
- * Bootstraps Vuetify and other plugins then mounts the App`
- */
-
-
 //moment
 import moment from 'moment'
 import ru from "moment/dist/locale/ru"
@@ -20,6 +13,12 @@ import { createApp } from 'vue'
 
 // Plugins
 import { registerPlugins } from '@/plugins'
+
+
+import axios from 'axios'
+const user = JSON.parse(localStorage.getItem('user'));
+axios.defaults.headers.common = {'Authorization': `Bearer ${user?.access_token}`}
+
 
 const app = createApp(App)
 
