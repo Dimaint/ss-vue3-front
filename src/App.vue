@@ -1,17 +1,19 @@
 <template>
   <v-app>
-    <notifications position="center"/>
-    <v-system-bar color="blue-grey" >
+    <notifications position="center" />
+    <v-system-bar color="blue-grey">
       <v-spacer></v-spacer>
-      <span style="cursor: pointer;" v-if="user!=null" class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Вася Пупкин {{ user?.username }}</span>
-      <span style="cursor: pointer;" v-if="user==null" @click="auth" class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon> Authentication </span>
+      <span style="cursor: pointer;" v-if="user != null" class="ms-2"><v-icon icon="mdi-account" class="ms-2"></v-icon>
+      {{ `${user.last_name} ${user.first_name}` }}</span>
+      <span style="cursor: pointer;" v-if="user == null" @click="auth" class="ms-2"><v-icon icon="mdi-account"
+          class="ms-2"></v-icon> Authentication </span>
 
       <v-spacer></v-spacer>
-      <v-icon v-if="user!=null" @click="logout" icon="mdi-exit-run" class="ms-2"></v-icon>
+      <v-icon v-if="user != null" @click="logout" icon="mdi-exit-run" class="ms-2"></v-icon>
 
       <!-- <span class="ms-2">3:13PM</span> -->
     </v-system-bar>
-    <router-view class="mt-8"/>
+    <router-view class="mt-8" />
     <v-layout class="overflow-visible" style="height: 56px">
       <v-bottom-navigation v-model="value" bg-color="blue-grey" style="position: fixed !important" mode="shift">
         <v-btn v-for="el in links" :key="el.title" :to="el.href">

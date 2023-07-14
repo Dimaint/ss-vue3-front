@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useUserStore } from './user';
+
+
 
 export const useEmployeeStore = defineStore('employees', {
+
   state: () => {
     return {
       employee: [],
@@ -10,9 +14,10 @@ export const useEmployeeStore = defineStore('employees', {
     }
   },
   actions: {
+
     async GET_EMPLOYEES(payload) {
-      // axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
-      // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+      const userState = useUserStore();
+
       let params ={limit: 7, page: payload?payload.page:1}
       this.is_loading = true;
       try {
@@ -22,7 +27,10 @@ export const useEmployeeStore = defineStore('employees', {
         this.employee = data.rez
         this.total = data.total
       }catch(err) {
-        console.log('err')
+        console.log(err)
+        if(err.response.statusText=='Unauthorized'){
+          userState.LOGOUT();
+        }
       }finally {
         this.is_loading = false;
       }

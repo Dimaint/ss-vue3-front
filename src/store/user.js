@@ -8,8 +8,6 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       is_loading: false,
-      token: '',
-      user_name: '',
       user: JSON.parse(localStorage.getItem('user')),
     }
   },
@@ -41,12 +39,20 @@ export const useUserStore = defineStore('user', {
       try {
         let {data}= await axios.get('http://localhost:8000/auth/profile')
 
+        // var d1 = new Date(data.exp);
+        // var d2 = new Date(data.iat);
+
+        console.log(data);
+        // console.log(d1);
+        // console.log(d2);
+        console.log(data.exp-data.iat);
+
         const userData = {...data, ...auth}
         localStorage.setItem('user', JSON.stringify(userData));
         this.user = userData;
         router.push('/')
 
-        console.log(data.exp-data.iat)
+
       }catch(err) {
         console.log('err')
       }finally {
