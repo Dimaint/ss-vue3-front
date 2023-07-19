@@ -1,5 +1,6 @@
 <template >
    <v-container>
+    <avatar-dialog :avatar_dialog="avatar_dialog" :avatar_img="client.src" :person_id="route.params.id" @close-dialog="closeDialog"/>
 
 <v-row>
   <v-btn @click="router.go(-1)" size="x-small" icon="mdi-arrow-left"></v-btn>
@@ -24,8 +25,11 @@
   <v-col cols="9">
     <group-list v-if="activeTab.id == 2"/>
     <v-card v-if="activeTab.id == 1" class="mx-auto pa-4">
-    <div><v-img :max-width="150" aspect-ratio="1/1" cover src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"></v-img>
+    <!-- <div><v-img :max-width="150" aspect-ratio="1/1" cover src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"></v-img>
+    </div> -->
+    <div><v-img :max-width="150" aspect-ratio="1/1" cover :src="client.src"></v-img>
     </div>
+    <v-btn variant="tonal" size="small" class="my-2" @click="openDialog">change avatar</v-btn>
     <!-- <p class="text-subtitle-1 ">Должность: <span class="font-weight-light">{{ employee.rank }}</span></p> -->
     <p class="text-subtitle-1 ">Фамилия: <span class="font-weight-light">{{ client.last_name }}</span></p>
     <p class="text-subtitle-1 ">Имя: <span class="font-weight-light">{{ client.first_name }}</span></p>
@@ -47,13 +51,18 @@ import { watch, ref } from 'vue'
 import { onMounted } from "vue";
 import axios from 'axios'
 import moment from 'moment'
+import AvatarDialog from '../components/AvatarDialog.vue'
 export default {
+  components: {
+    AvatarDialog
+  },
   setup() {
     const route = useRoute();
     const router = useRouter();
     const client = ref({})
     const activeTab = ref({})
     const group = ref({})
+    const avatar_dialog = ref(false)
 
     const items = [
       { id: 1, text: 'БИО', icon: 'mdi-account' },
@@ -67,14 +76,25 @@ export default {
 
       getClientGroup();
     }
+
+    async function getAvatar() {
+      let { data } = await axios.get('http://localhost:8000/files/' + route.params.id)
+      client.value['src'] = `data:${data.mimetype};base64,${data.b64}`
+    }
     async function getClientGroup() {
       let { data } = await axios.get('http://localhost:8000/groups/' + client.value.groupId)
       group.value = data
     }
+    function openDialog() {
+      avatar_dialog.value=true
+    }
+    function closeDialog() {
+      avatar_dialog.value=false
+    }
     onMounted(() => {
 
       getClient();
-
+      getAvatar();
       activeTab.value = items[0];
     });
     watch(route, () => console.log('route.params'));
@@ -85,7 +105,11 @@ export default {
       moment,
       items,
       activeTab,
-      group
+      group,
+      avatar_dialog,
+      openDialog,
+      closeDialog,
+      route
     }
   }
 }
