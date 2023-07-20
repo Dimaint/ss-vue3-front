@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <div>
-      <h2>Журнал</h2>
-    </div>
-  </div>
+  <v-slide-group v-model="model" class="pa-4" selected-class="bg-success" show-arrows>
+    <v-slide-group-item v-for="n in 15" :key="n" v-slot="{ isSelected, toggle, selectedClass }">
+      <v-card color="grey-lighten-1" :class="['ma-4', selectedClass]" height="100" width="150" @click="toggle">
+        <div class="d-flex fill-height align-center justify-center">
+          <v-scale-transition>
+            ugug
+            <v-icon v-if="isSelected" color="white" size="48" icon="mdi-close-circle-outline"></v-icon>
+          </v-scale-transition>
+        </div>
+      </v-card>
+    </v-slide-group-item>
+  </v-slide-group>
 </template>
 <script>
 export default {

@@ -18,7 +18,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <!-- <small>*indicates required field</small> -->
+
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -39,16 +39,16 @@ import axios from 'axios'
 import { notify } from "@kyvg/vue3-notification";
 
 export default {
-  props: ['avatar_dialog', 'avatar_img', 'person_id'],
+  props: ['avatar_dialog', 'avatar_img', 'person_id', 'parent'],
   emits: ['closeDialog'],
 
   setup(props, ctx) {
     const file = ref({})
-
+    console.log(props.parent)
     async function save_avatar() {
       try {
         let params = {
-          fileType: 'avatar',
+          fileType: `${props.parent}-avatar`,
           objectId: props.person_id
         }
 
