@@ -38,14 +38,10 @@ export const useUserStore = defineStore('user', {
       this.is_loading = true;
       try {
         let {data}= await axios.get('http://localhost:8000/auth/profile')
-
-        // var d1 = new Date(data.exp);
-        // var d2 = new Date(data.iat);
-
-        console.log(data);
-        // console.log(d1);
-        // console.log(d2);
-        console.log(data.exp-data.iat);
+        console.log(auth)
+        let {data:ava} = await axios.get('http://localhost:8000/files/'+auth.user_id)
+        console.log(ava)
+        data['avatar'] = `data:${ava.mimetype};base64,${ava.b64}`
 
         const userData = {...data, ...auth}
         localStorage.setItem('user', JSON.stringify(userData));

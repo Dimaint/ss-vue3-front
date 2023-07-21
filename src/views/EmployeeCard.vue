@@ -85,8 +85,7 @@ export default {
     }
 
     function openDialog() {
-      console.log('huhu')
-      avatar_dialog.value = !avatar_dialog.value
+      avatar_dialog.value = true
     }
     function closeDialog() {
       avatar_dialog.value = false

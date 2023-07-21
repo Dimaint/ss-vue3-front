@@ -54,10 +54,10 @@ import { watch, ref } from 'vue'
 import { onMounted } from "vue";
 import axios from 'axios'
 import moment from 'moment'
-import AvatarDialog from '../components/AvatarDialog.vue'
+import AvatarDialog from '@/components/AvatarDialog.vue'
 import imgUrl from '@/assets/avatar.png'
 
-import { useUserStore } from './store/user';
+import { useUserStore } from '@/store/user';
 import { storeToRefs } from "pinia";
 
 export default {

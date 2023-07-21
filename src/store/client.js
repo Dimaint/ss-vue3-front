@@ -42,7 +42,15 @@ export const useClientStore = defineStore('clients', {
       try {
         // let {data}= await axios.get('http://localhost:8000/clients')
         let {data}= await axios.get('http://localhost:8000/clients/group/' + group_id)
-        console.log(data)
+        for await(let el of data.rez) {
+          let params = {
+            fileType: 'client-avatar'
+          }
+          let { data } = await axios.get('http://localhost:8000/files/' + el.id, {params: params})
+          // if(data) {
+            el['src'] = `data:${data.mimetype};base64,${data.b64}`
+          // }
+        }
         this.clients = data.rez
         this.total = data.total
       }catch(err) {
