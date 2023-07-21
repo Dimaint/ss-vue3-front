@@ -24,6 +24,15 @@
           </v-carousel-item>
 
         </v-carousel>
+        <vue-cal
+  selected-date="2018-11-19"
+  :time-from="7 * 60"
+  :time-to="23 * 60"
+  :disable-views="['years', 'year', 'day']"
+
+  :events="events">
+</vue-cal>
+
       </v-col>
     </v-row>
   </v-container>
@@ -34,6 +43,8 @@ import { onMounted, watch, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/store/user";
 import axios from "axios";
+import VueCal from 'vue-cal'
+import 'vue-cal/dist/vuecal.css'
 
 const clientStore = useClientStore();
 const userStore = useUserStore()
@@ -46,6 +57,40 @@ const selectedGroup = ref({});
 
 
 export default {
+  data: () => ({
+  events: [
+    {
+      start: '2018-11-19 12:00',
+      end: '2018-11-19 14:00',
+      title: 'LUNCH',
+      class: 'lunch',
+      background: true
+    },
+    {
+      start: '2018-11-20 12:00',
+      end: '2018-11-20 14:00',
+      title: 'LUNCH',
+      class: 'lunch',
+
+    },
+    {
+      start: '2018-11-20 7:00',
+      end: '2018-11-20 23:00',
+      title: 'sport',
+      class: 'sport',
+      background: true
+
+    },
+    {
+      start: '2018-11-22 7:00',
+      end: '2018-11-22 23:00',
+      title: '22',
+      class: '22',
+      background: true
+
+    },
+]}),
+  components: { VueCal },
   setup() {
 
     async function getGroups() {
@@ -83,4 +128,6 @@ export default {
   },
 }
 </script>
-<style lang="scss"></style>
+<style >
+.vuecal__event {background-color: rgba(76, 172, 175, 0.35);}
+</style>

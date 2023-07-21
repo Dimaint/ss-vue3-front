@@ -1,5 +1,6 @@
 <template>
   <v-container>
+
     <avatar-dialog :avatar_dialog="avatar_dialog" :avatar_img="employee.src" :person_id="route.params.id" :parent="'employee'"
       @close-dialog="closeDialog" />
     <v-row>
@@ -31,6 +32,7 @@
           </div>
           <v-btn v-if ="user.id==employee.id||user.id==3" variant="tonal" size="small" class="my-2" @click="openDialog">change avatar</v-btn>
           <p>{{ avatar_dialog }}</p>
+          <p>{{ moment().day(1) }}</p>
           <!-- <p class="text-subtitle-1 ">Должность: <span class="font-weight-light">{{ employee.rank }}</span></p> -->
           <p class="text-subtitle-1 ">Фамилия: <span class="font-weight-light">{{ employee.last_name }}</span></p>
           <p class="text-subtitle-1 ">Имя: <span class="font-weight-light">{{ employee.first_name }}</span></p>
