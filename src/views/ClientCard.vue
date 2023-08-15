@@ -42,6 +42,8 @@
           <p class="text-subtitle-1 ">Группа: <span @click="" class="font-weight-light text-yellow-darken-4">{{ group.name
           }}</span></p>
         </v-card>
+
+        <Schedule v-if="activeTab.id == 2"/>
       </v-col>
     </v-row>
 
@@ -56,13 +58,15 @@ import axios from 'axios'
 import moment from 'moment'
 import AvatarDialog from '@/components/AvatarDialog.vue'
 import imgUrl from '@/assets/avatar.png'
+import Schedule from '@/components/Schedule.vue';
 
 import { useUserStore } from '@/store/user';
 import { storeToRefs } from "pinia";
 
 export default {
   components: {
-    AvatarDialog
+    AvatarDialog,
+    Schedule
   },
   setup() {
     const route = useRoute();
