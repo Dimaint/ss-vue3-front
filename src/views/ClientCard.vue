@@ -44,6 +44,7 @@
         </v-card>
 
         <Schedule v-if="activeTab.id == 2" :group="group"/>
+        <PersonalVisitLogs v-if="activeTab.id == 3" :client="client"/>
       </v-col>
     </v-row>
 
@@ -59,6 +60,7 @@ import moment from 'moment'
 import AvatarDialog from '@/components/AvatarDialog.vue'
 import imgUrl from '@/assets/avatar.png'
 import Schedule from '@/components/Schedule.vue';
+import PersonalVisitLogs from '@/components/PersonalVisitLogs.vue';
 
 import { useUserStore } from '@/store/user';
 import { storeToRefs } from "pinia";
@@ -66,7 +68,8 @@ import { storeToRefs } from "pinia";
 export default {
   components: {
     AvatarDialog,
-    Schedule
+    Schedule,
+    PersonalVisitLogs
   },
   setup() {
     const route = useRoute();

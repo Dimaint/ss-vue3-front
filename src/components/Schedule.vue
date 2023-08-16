@@ -12,6 +12,8 @@
 <!-- {{calendarEvents}} -->
 {{props.group}}
   </div>
+
+
 </template>
 <script >
 import VueCal from 'vue-cal'
@@ -43,13 +45,14 @@ setup(props){
           title: el.name,
         })
         }
-        console.log(data)
+        // console.log(data)
       }
 
     onMounted(() => {
       getSchedule();
 
     });
+
 
     return {
       calendarEvents,
@@ -64,4 +67,5 @@ setup(props){
 </script>
 <style >
 .vuecal__event {background-color: rgba(76, 172, 175, 0.35);}
+
 </style>
