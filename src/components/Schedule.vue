@@ -9,7 +9,8 @@
   hide-view-selector
   :events="calendarEvents">
 </vue-cal>
-{{calendarEvents}}
+<!-- {{calendarEvents}} -->
+{{props.group}}
   </div>
 </template>
 <script >
@@ -25,13 +26,15 @@ export default {
    }),
   components: { VueCal },
 
-setup(){
+  props: ['group'],
+
+setup(props){
   const calendarEvents = ref([ ])
 
 
     async function getSchedule() {
 
-      let { data } = await axios.get('http://localhost:8000/schedules/' + '1')
+      let { data } = await axios.get('http://localhost:8000/schedules/' + props.group.scheduleId)
         for(let el of data.scheduleDays) {
           let day = moment().day(el.weekDay).format('YYYY-MM-DD')
           calendarEvents.value.push({
@@ -49,7 +52,8 @@ setup(){
     });
 
     return {
-      calendarEvents
+      calendarEvents,
+      props
     }
 }
 }

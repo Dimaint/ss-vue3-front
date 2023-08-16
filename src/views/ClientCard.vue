@@ -43,7 +43,7 @@
           }}</span></p>
         </v-card>
 
-        <Schedule v-if="activeTab.id == 2"/>
+        <Schedule v-if="activeTab.id == 2" :group="group"/>
       </v-col>
     </v-row>
 
